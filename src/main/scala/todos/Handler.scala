@@ -13,7 +13,7 @@ import scala.beans.BeanProperty
   */
 class Handler {
 
-  implicit val dynamoDB = DynamoDB.at(Region.US_EAST_1)
+  implicit val dynamoDB = DynamoDB.at(Region.EU_WEST_2)
 
   implicit val formats = Serialization.formats(NoTypeHints)
 
