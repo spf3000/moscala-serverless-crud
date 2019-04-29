@@ -3,24 +3,31 @@ package todos
 import java.util.UUID
 import awscala._
 import awscala.dynamodbv2._
+import awscala.s3._
+import java.io.InputStream
+
 import com.amazonaws.services.lambda.runtime.Context
 import org.json4s._
 import org.json4s.native.Serialization
 import org.json4s.native.Serialization._
 import scala.beans.BeanProperty
-/**
-  * Created by jahangir on 10/30/16.
-  */
+
+
 class Handler {
 
-  implicit val dynamoDB = DynamoDB.at(Region.EU_WEST_2)
+  implicit val imageS3: S3 = S3.at(Region.EU_WEST_1)
 
   implicit val formats = Serialization.formats(NoTypeHints)
 
-  val table: Table = dynamoDB.table("todos").get
 
   def getGreeting(input: GetGreetingRequest, context: Context): Response =
     Response(200, "Moscala? MoYEAH!!!!")
+
+  def addImage(input: InputStream, context: Context): Response = {
+    
+
+  }
+   
 
   def getAll(input: GetAllRequest, context: Context): Response = {
     val results = table.scan(Seq("item" -> cond.isNotNull)).toList
